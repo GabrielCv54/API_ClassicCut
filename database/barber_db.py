@@ -1,26 +1,21 @@
-from flask_sqlalchemy import SQLAlchemy
-from app import api
-
-db = SQLAlchemy()
-
-db.init_app(api)
-
+from app import db
+from sqlalchemy.types import ARRAY
 
 class Barbeiro(db.Model):
     __tablename__ = 'Barbeiro'
 
     id = db.Column(db.Integer,primary_key= True,autoincrement=True)
-    name = db.Column(db.Varchar(70),nullable=True)
+    name = db.Column(db.String(70),nullable=True)
     age = db.Column(db.Integer)
     workplace = db.Column(db.String(70),nullable=False)
-    appointments = db.Column(db.ForeignKey(list('Cliente.id')))
+    appointments = db.Column(db.ForeignKey(ARRAY('Cliente.id')))
 
     def __init__(self,id,name,age,workplace,appointments):
        self.id = id
        self.name = name
        self.age = age
        self.workplace = workplace
-       self.appointments
+       self.appointments = appointments
 
     def dicionario(self):
      return {'Id':self.id,'Barbeiro':self.name,'Idade':self.age,'Local de trabalho': self.workplace,'Agendamentos':self.appointments}

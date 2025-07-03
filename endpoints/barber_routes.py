@@ -1,15 +1,15 @@
-from flask import jsonify,request,Flask,make_response
-from database.barber_db import (
-    Barbeiro,create_new_barber,delete_barber,BarbeiroNaoEncontrado,get_all_barbers,get_one_barber,update_barber
+from flask import jsonify,request,make_response
+from app import api
+from ..database.barber_db import (
+   create_new_barber,delete_barber,BarbeiroNaoEncontrado,get_all_barbers,get_one_barber,update_barber,
     )
+import os 
 
-class Error(Exception):
-    pass
+#Usar isso daqui para autenticação da API
+# secret_key = os.getenv('chave secreta','Key')
 
 
-api = Flask(__name__)
-
-barbershop= {
+'''barbershop= {
     'Barbeiros':[
         {'id':1,'Nome':'Edgar Rodrigues','Idade':44,'Cortes Marcados':[100,200,300,400,500],'Local de Trabalho':'Their Space'}
         ],
@@ -19,7 +19,7 @@ barbershop= {
     "Agendamentos":[
         {'id':1,'Dia':'28 de Junho','Cabeleireiro':1,'Cliente':100}
         ]
-    }
+    }'''
 
 
 @api.route('/barbearia/barbeiros',methods=['GET'])
@@ -28,39 +28,29 @@ def mostrar_barbeiros():
 
 @api.route('/barbearia/barbeiro/<int:id>',methods=['GET'])
 def mostrar_barbeiro_por_id(id):
-    '''
-    Essa é a parte que valida se os clientes em que o barbeiro vai atender existem ou não
-    clients = barbershop['Clientes']
-    for c in clients:
-        c.get('id')'''
-    for barb in barbershop['Barbeiros']:
-        if barb.get('id') == id:
-            return jsonify(barb),200
-    '''Faz parte da mesma parte
-          if barb.get('Cortes Marcados') not in c:
-            return jsonify({'Erro':'Não é possível continuar, pois esse cliente não existe ou não marcou agendamento ainda!'}),403'''
-    return jsonify({'Erro':'Esse barbeiro não foi encontrado ,tente verificar o id dele novamente!'}), 404
+        return jsonify(get_one_barber(id)),200
 
 @api.route('/barbearia/barbeiro',methods=['POST'])
 def criar_novo_barbeiro():
-   data = request.json
-   barbershop['Barbeiros'].append(data)
-   return jsonify(barbershop['Barbeiros']),201
-
+   try:
+    data = request.json
+    return jsonify(create_new_barber(data)),201
+   except BarbeiroNaoEncontrado:
+       return jsonify({'Erro':'Esse barbeiro não existe ou não foi cadastrado!!'}),404
+   
 @api.route('/barbearia/barbeiro/<int:id>',methods=['PUT'])
 def atualizar_barbeiro(id):
-   updated_data = request.json
-   for b in barbershop['Barbeiros']:
-       if b.get('id') == id:
-           b.update(updated_data)
-           return jsonify(barbershop['Barbeiros']),201
-   return jsonify({'Erro':'O id do barbeiro não existe, tente novamente'}),404
+   try:
+    updated_data = request.json
+    return jsonify(update_barber(id,updated_data)),201
+   except BarbeiroNaoEncontrado:
+       return jsonify({'Erro':'Esse barbeiro não existe ou não foi encontrado!'}),404
 
 @api.route('/barbearia/barbeiro/<int:id>',methods=['DELETE'])
 def deletar_barbeiro(id):
-    for barber in barbershop['Barbeiros']:
-        if barber.get('id') == id:
-            barbershop['Barbeiros'].remove(barber)
+     try:
             return jsonify({'Mensagem':'Barbeiro excluído com sucesso!!'}),200
-    return jsonify({'Erro':'Barbeiro com esse id não foi encontrado'}),404
+     except BarbeiroNaoEncontrado:
+      return jsonify({'Erro':'Barbeiro com esse id não foi encontrado'}),404
+
 
