@@ -1,6 +1,6 @@
-from .database.barber_db import db
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+
 """ import jwt
  """
 api = Flask(__name__)
