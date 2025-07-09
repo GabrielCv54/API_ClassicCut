@@ -9,19 +9,6 @@ import os
 # secret_key = os.getenv('chave secreta','Key')
 
 
-'''barbershop= {
-    'Barbeiros':[
-        {'id':1,'Nome':'Edgar Rodrigues','Idade':44,'Cortes Marcados':[100,200,300,400,500],'Local de Trabalho':'Their Space'}
-        ],
-    'Clientes':[
-        {'id':100,'Nome':'Lucas Moura','Idade':21,'CPF':459896614,'Horário_agendamento':'15h30','Dia_agendamento':'Sábado,28 de junho'},{}
-        ],
-    "Agendamentos":[
-        {'id':1,'Dia':'28 de Junho','Cabeleireiro':1,'Cliente':100}
-        ]
-    }'''
-
-
 @api.route('/barbearia/barbeiros',methods=['GET'])
 def mostrar_barbeiros():
     return jsonify(get_all_barbers()),200
