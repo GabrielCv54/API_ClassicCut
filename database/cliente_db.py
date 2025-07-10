@@ -1,4 +1,7 @@
-from app import db
+from ..app import db
+import datetime
+
+today = datetime.datetime.now()
 
 class Cliente(db.Model):
     __tablename__ = 'Cliente'
@@ -7,7 +10,7 @@ class Cliente(db.Model):
     name = db.Column(db.String(70),nullable=False)
     age = db.Column(db.Integer)
     appointment_time = db.Column(db.DateTime,nullable=False)
-    appointment_day = db.Column(db.DateTime,nullable=False)
+    appointment_day = db.Column(db.String(35),nullable=False)
 
     def __init__(self,id,name,age,appointment_time,appointment_day):
         self.id = id
@@ -17,7 +20,7 @@ class Cliente(db.Model):
         self.appointment_day = appointment_day
 
     def dicionario(self):
-        return {'Id':self.id,'Nome':self.name,'Idade':self.age,'Horário de Agendamento':self.appointment_time,'Dia do agendamento':self.appointment_day}
+        return {'id':self.id,'Nome':self.name,'Idade':self.age,'Horário de Agendamento':self.appointment_time,'Dia do agendamento':self.appointment_day}
     
 class CustomerNotFound(Exception):
     pass

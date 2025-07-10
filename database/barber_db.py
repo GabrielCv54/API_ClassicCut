@@ -8,7 +8,7 @@ class Barbeiro(db.Model):
     name = db.Column(db.String(70),nullable=True)
     age = db.Column(db.Integer)
     workplace = db.Column(db.String(70),nullable=False)
-    appointments = db.Column(db.ForeignKey(ARRAY('Cliente.id')))
+    appointments = db.Column(ARRAY(db.ForeignKey('Cliente.id')))
 
     def __init__(self,id,name,age,workplace,appointments):
        self.id = id
@@ -18,7 +18,7 @@ class Barbeiro(db.Model):
        self.appointments = appointments
 
     def dicionario(self):
-     return {'Id':self.id,'Barbeiro':self.name,'Idade':self.age,'Local de trabalho': self.workplace,'Agendamentos':self.appointments}
+     return {'id':self.id,'Barbeiro':self.name,'Idade':self.age,'Local de trabalho': self.workplace}
     
     def informations(self):
      return self.dicionario()
@@ -33,8 +33,6 @@ def get_all_barbers():
 
 def get_one_barber(id):
    barber = Barbeiro.query.get(id)
-   if not barber:
-         return {'Erro':'Esse barbeiro não está cadastrado,verifique se o id e tente novamente!!'},404
    return barber.dicionario()
 
 def create_new_barber(data):
@@ -44,8 +42,6 @@ def create_new_barber(data):
 
 def update_barber(id,data):
     barber = Barbeiro.query.get(id)
-    if not barber :
-       raise BarbeiroNaoEncontrado
     data.id = barber['id']
     data.name = barber['nome']
     data.age = barber['idade']
@@ -56,10 +52,7 @@ def update_barber(id,data):
 
 def delete_barber(id):
    barber_delete = Barbeiro.query.get(id)
-   if not barber_delete:
-      raise BarbeiroNaoEncontrado
-   else:
-      db.session.delete(barber_delete)
-      db.session.commit()
+   db.session.delete(barber_delete)
+   db.session.commit()
 
 

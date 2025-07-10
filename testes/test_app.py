@@ -4,17 +4,19 @@ import datetime
 
 url = 'http://127.0.0.1:5000/barbearia/barbeiros'
 
+today = datetime.datetime.today()
 #Dicionário de exemplo da barbearia
 barbershop= {
     'Barbeiros':[
-        {'id':1,'Nome':'Edgar Rodrigues','Idade':datetime.datetime(1985,1,22),'Cortes Marcados':[100,200,300,400,500],'Local de Trabalho':'Their Space'}
+        {'id':1,'Nome':'Edgar Rodrigues','Idade':today - (datetime.datetime(1985,1,22)),'Cortes Marcados':[100,200,300,400,500],'Local de Trabalho':'Their Space'}
         ],
     'Clientes':[
-        {'id':100,'Nome':'Lucas Moura','Idade':datetime.datetime(1995,10,20),'CPF':459896614,'Horário_agendamento':'15h30','Dia_agendamento':'Sábado,28 de junho'},
-        {'id':200,'Nome':'Kauan De moraes','Idade':datetime.datetime(2000,4,19),'Cortes Marcados':}
+        {'id':100,'Nome':'Lucas Moura','Idade':(today -datetime.datetime(1995,10,20)),'CPF':459896614,'Horário_agendamento':'15h30','Dia_agendamento':'Sábado,28 de junho'},
+        {'id':200,'Nome':'Kauan De moraes','Idade':datetime.datetime(2000,4,19),'CPF':57812484041,'Horário_Agendamento':datetime.time(10,0),'Dia_agendamento':'Sexta,27 de junho'}
         ],
     "Agendamentos":[
-        {'id':1,'Dia':'28 de Junho','Cabeleireiro':1,'Cliente':100}
+        {'id':1,'Dia':'28 de Junho','Cabeleireiro':1,'Cliente':100},
+        {'id':2,'Dia':'27 de Junho','Cabeleirerio':2}
         ]
     }
 
@@ -29,7 +31,7 @@ def requisition_api():
 def test_id_barbeiro():
        for b in barbers:
             id = b.get('id')
-       assert (type(id) == int)
+       assert (type(id) == int), 'id adicionado corretamente!!'
 
 def test_verifica_se_o_nome_string():
         for barber in barbers:
@@ -43,9 +45,13 @@ def test_maior_de_idade():
 
 def test_verifica_se_o_id_do_cliente_existe():
       id_clients = barbers['Cortes Marcados']
-      all_clients = clients
+      id_cli = clients['id']
       for id_cli in id_clients:
-        assert id_cli == 
+        assert id_cli != id_clients , 'Esse cliente não está cadastro ou não existe'
                 
 '''age_barber = datetime.datetime.now() - datetime.datetime(2022,10,2)
 print(age_barber.days)'''
+
+'''for cli in clients:
+      print(cli)'''
+test_maior_de_idade()
