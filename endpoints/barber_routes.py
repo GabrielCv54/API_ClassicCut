@@ -15,16 +15,16 @@ def mostrar_barbeiros():
 
 @barber_blueprint.route('/barbearia/barbeiro/<int:id>',methods=['GET'])
 def mostrar_barbeiro_por_id(id):
-        try:
+      try:
          return jsonify(get_one_barber(id)),200
-        except BarbeiroNaoEncontrado:
+      except BarbeiroNaoEncontrado:
            return jsonify({'Erro':'Esse barbeiro não existe ou não foi encontrado'}),404
 
 
 @barber_blueprint.route('/barbearia/barbeiro',methods=['POST'])
 def criar_novo_barbeiro():
    try:
-    data = request.json
+    data = request.get_json()
     return jsonify(create_new_barber(data)),201
    except BarbeiroNaoEncontrado:
        return jsonify({'Erro':'Esse barbeiro não existe ou não foi cadastrado!!'}),404

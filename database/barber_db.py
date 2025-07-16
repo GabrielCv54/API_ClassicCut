@@ -1,24 +1,24 @@
 from ..app import db
-from sqlalchemy.types import ARRAY
+
 
 class Barbeiro(db.Model):
     __tablename__ = 'Barbeiro'
 
     id = db.Column(db.Integer,primary_key= True,autoincrement=True)
-    name = db.Column(db.String(70),nullable=True)
-    age = db.Column(db.Integer)
-    workplace = db.Column(db.String(70),nullable=False)
-    appointments = db.Column(ARRAY(db.ForeignKey('Cliente.id')))
+    barbeiro = db.Column(db.String(100),nullable=False)
+    idade = db.Column(db.Integer)
+    local_de_trabalho = db.Column(db.String(70),nullable=False)
+    agendamentos = db.relationship('Cliente', back_populates='barber')
 
     def __init__(self,id,name,age,workplace,appointments):
        self.id = id
-       self.name = name
-       self.age = age
-       self.workplace = workplace
-       self.appointments = appointments
+       self.nome = name
+       self.idade = age
+       self.local_de_trabalho = workplace
+       self.agendamentos = appointments
 
     def dicionario(self):
-     return {'id':self.id,'Barbeiro':self.name,'Idade':self.age,'Local de trabalho': self.workplace}
+     return {'id':self.id,'barbeiro':self.idade,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':self.agendamentos}
     
     def informations(self):
      return self.dicionario()
@@ -29,16 +29,17 @@ class BarbeiroNaoEncontrado(Exception):
 
 def get_all_barbers():
      barbers = Barbeiro.query.all()
-     return barbers
+     return [barber.dicionario() for barber in barbers]
 
 def get_one_barber(id):
    barber = Barbeiro.query.get(id)
    return barber.dicionario()
 
 def create_new_barber(data):
-   new_barber = Barbeiro(id=data['id'],name=data['nome'],age=data['Idade'],workplace=data['Local de Trabalho'],appointments=data['Agendamentos'])
+   new_barber = Barbeiro(id=data.get('id'),name=data['barbeiro'],age=data['idade'],workplace=data['local de trabalho'],appointments=data.get('agendamentos',[]))
    db.session.add(new_barber)
    db.session.commit()
+   return {'Barbeiro criado!!'},201
 
 def update_barber(id,data):
     barber = Barbeiro.query.get(id)
@@ -47,12 +48,12 @@ def update_barber(id,data):
     data.age = barber['idade']
     data.workplace = barber['Local de Trabalho']
     data.appointments = barber['Agendamentos']
-    db.session.add(data)
     db.session.commit()
+    return {'Sucesso':'Barbeiro atualizado!!'},201
 
 def delete_barber(id):
    barber_delete = Barbeiro.query.get(id)
    db.session.delete(barber_delete)
    db.session.commit()
-
+   return {'Sucesso':'Barbeiro Deletado!!'},203
 

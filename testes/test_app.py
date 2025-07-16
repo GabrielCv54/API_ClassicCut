@@ -4,15 +4,15 @@ import datetime
 
 url = 'http://127.0.0.1:5000/barbearia/barbeiros'
 
-today = datetime.datetime.today()
+today = datetime.date.today()
 #Dicionário de exemplo da barbearia
 barbershop= {
     'Barbeiros':[
-        {'id':1,'Nome':'Edgar Rodrigues','Idade':today - (datetime.datetime(1985,1,22)),'Cortes Marcados':[100,200,300,400,500],'Local de Trabalho':'Their Space'}
+        {'id':1,'Nome':'Edgar Rodrigues','Idade':18,'Cortes Marcados':[100,200,300,400,500],'Local de Trabalho':'Their Space'}
         ],
     'Clientes':[
-        {'id':100,'Nome':'Lucas Moura','Idade':(today -datetime.datetime(1995,10,20)),'CPF':459896614,'Horário_agendamento':'15h30','Dia_agendamento':'Sábado,28 de junho'},
-        {'id':200,'Nome':'Kauan De moraes','Idade':datetime.datetime(2000,4,19),'CPF':57812484041,'Horário_Agendamento':datetime.time(10,0),'Dia_agendamento':'Sexta,27 de junho'}
+        {'id':100,'Nome':'Lucas Moura','Idade':29,'CPF':459896614,'Horário_agendamento':'15h30','Dia_agendamento':'Sábado,28 de junho'},
+        {'id':200,'Nome':'Kauan De moraes','Idade':36,'CPF':57812484041,'Horário_Agendamento':datetime.time(10,0).isoformat(),'Dia_agendamento':'Sexta,27 de junho'}
         ],
     "Agendamentos":[
         {'id':1,'Dia':'28 de Junho','Cabeleireiro':1,'Cliente':100},
@@ -40,18 +40,24 @@ def test_verifica_se_o_nome_string():
             
 def test_maior_de_idade():
       for barber in barbers:
-             age_barber =( datetime.datetime.now() - barber.get('idade'))
-             assert isinstance(age_barber,age_barber<=18), 'A idade do barbeiro cadastrado só pode ser maior de 18 anos!'
+             age_barber = barber['Idade']
+             assert isinstance(age_barber<=18), 'A idade do barbeiro cadastrado só pode ser maior de 18 anos!'
 
-def test_verifica_se_o_id_do_cliente_existe():
+def test_verifica_se_o_id_do_cliente_existe(id):
       id_clients = barbers['Cortes Marcados']
-      id_cli = clients['id']
-      for id_cli in id_clients:
-        assert id_cli != id_clients , 'Esse cliente não está cadastro ou não existe'
-                
+      for id in id_clients:
+         assert (id in id_clients) ,'Esse cliente não está cadastro ou não existe'
+
+def test_se_idade_maior_que_150():
+     for cli in clients:
+      assert cli.get('Idade') > 150, 'Esse cliente não existe, pois essa é uma idade muito avançada'
+     
+
+def test_verificar_se_o_cpf_e_valido():
+    pass      
+
 '''age_barber = datetime.datetime.now() - datetime.datetime(2022,10,2)
 print(age_barber.days)'''
 
 '''for cli in clients:
       print(cli)'''
-test_maior_de_idade()
