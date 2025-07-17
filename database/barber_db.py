@@ -1,4 +1,4 @@
-from ..app import db
+from app import db
 
 
 class Barbeiro(db.Model):
@@ -12,13 +12,13 @@ class Barbeiro(db.Model):
 
     def __init__(self,id,name,age,workplace,appointments):
        self.id = id
-       self.nome = name
+       self.barbeiro = name
        self.idade = age
        self.local_de_trabalho = workplace
        self.agendamentos = appointments
 
     def dicionario(self):
-     return {'id':self.id,'barbeiro':self.idade,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':self.agendamentos}
+     return {'id':self.id,'barbeiro':self.barbeiro,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':self.agendamentos}
     
     def informations(self):
      return self.dicionario()
@@ -39,7 +39,7 @@ def create_new_barber(data):
    new_barber = Barbeiro(id=data.get('id'),name=data['barbeiro'],age=data['idade'],workplace=data['local de trabalho'],appointments=data.get('agendamentos',[]))
    db.session.add(new_barber)
    db.session.commit()
-   return {'Barbeiro criado!!'},201
+
 
 def update_barber(id,data):
     barber = Barbeiro.query.get(id)
@@ -49,11 +49,9 @@ def update_barber(id,data):
     data.workplace = barber['Local de Trabalho']
     data.appointments = barber['Agendamentos']
     db.session.commit()
-    return {'Sucesso':'Barbeiro atualizado!!'},201
 
 def delete_barber(id):
    barber_delete = Barbeiro.query.get(id)
    db.session.delete(barber_delete)
    db.session.commit()
-   return {'Sucesso':'Barbeiro Deletado!!'},203
 

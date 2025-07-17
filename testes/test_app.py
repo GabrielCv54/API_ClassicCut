@@ -8,15 +8,15 @@ today = datetime.date.today()
 #Dicionário de exemplo da barbearia
 barbershop= {
     'Barbeiros':[
-        {'id':1,'Nome':'Edgar Rodrigues','Idade':18,'Cortes Marcados':[100,200,300,400,500],'Local de Trabalho':'Their Space'}
+        {"id":1,"barbeiro":"Edgar Rodrigues","idade":18,"agendamentos":[],"local de trabalho":"Their Space"}
         ],
     'Clientes':[
-        {'id':100,'Nome':'Lucas Moura','Idade':29,'CPF':459896614,'Horário_agendamento':'15h30','Dia_agendamento':'Sábado,28 de junho'},
+        {"id":100,"nome":"Lucas Moura","idade":29,"CPF":459896614,"telefone":"1194699999","serviço":""},
         {'id':200,'Nome':'Kauan De moraes','Idade':36,'CPF':57812484041,'Horário_Agendamento':datetime.time(10,0).isoformat(),'Dia_agendamento':'Sexta,27 de junho'}
         ],
     "Agendamentos":[
-        {'id':1,'Dia':'28 de Junho','Cabeleireiro':1,'Cliente':100},
-        {'id':2,'Dia':'27 de Junho','Cabeleirerio':2}
+        {'id':1,'dia':'28 de Junho','horário':'17h40','cabeleireiro':1,'Cliente':100},
+        {'id':2,'dia':'27 de Junho','horário':'9h','cabeleireiro':2}
         ]
     }
 

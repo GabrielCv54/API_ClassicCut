@@ -1,5 +1,5 @@
 from flask import jsonify,request,Blueprint
-from ..database.barber_db import (
+from database.barber_db import (
    create_new_barber,delete_barber,BarbeiroNaoEncontrado,get_all_barbers,get_one_barber,update_barber,
     )
 import os 
@@ -25,7 +25,8 @@ def mostrar_barbeiro_por_id(id):
 def criar_novo_barbeiro():
    try:
     data = request.get_json()
-    return jsonify(create_new_barber(data)),201
+    post = create_new_barber(data)
+    return jsonify({'Mensagem':'Barbeiro criado!'}),201
    except BarbeiroNaoEncontrado:
        return jsonify({'Erro':'Esse barbeiro não existe ou não foi cadastrado!!'}),404
    
@@ -33,14 +34,16 @@ def criar_novo_barbeiro():
 def atualizar_barbeiro(id):
    try:
     updated_data = request.json
-    return jsonify(update_barber(id,updated_data)),201
+    put = update_barber(id,updated_data)
+    return jsonify({'Mensagem':'Barbeiro Atualizado!'}),201
    except BarbeiroNaoEncontrado:
        return jsonify({'Erro':'Esse barbeiro não existe ou não foi encontrado!'}),404
 
 @barber_blueprint.route('/barbearia/barbeiro/<int:id>',methods=['DELETE'])
 def deletar_barbeiro(id):
      try:
-        return jsonify(delete_barber(id)),200
+        deleted_barber = delete_barber(id)
+        return jsonify({'Mensagem':'Barbeiro Excluido'}),200
      except BarbeiroNaoEncontrado:
       return jsonify({'Erro':'Barbeiro com esse id não foi encontrado'}),404
 

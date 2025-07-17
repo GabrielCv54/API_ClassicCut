@@ -1,6 +1,6 @@
-from .app import db,api
-from .endpoints.barber_routes import barber_blueprint
-from .endpoints.cliente_routes import client_blueprint
+from app import db,api
+from endpoints.barber_routes import barber_blueprint
+from endpoints.cliente_routes import client_blueprint
 
 
 api.register_blueprint(barber_blueprint)
