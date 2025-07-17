@@ -18,7 +18,7 @@ class Barbeiro(db.Model):
        self.agendamentos = appointments
 
     def dicionario(self):
-     return {'id':self.id,'barbeiro':self.barbeiro,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':self.agendamentos}
+     return {'id':self.id,'barbeiro':self.barbeiro,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':[agendamento.dicionario() for agendamento in self.agendamentos]}
     
     def informations(self):
      return self.dicionario()
@@ -29,10 +29,12 @@ class BarbeiroNaoEncontrado(Exception):
 
 def get_all_barbers():
      barbers = Barbeiro.query.all()
-     return [barber.dicionario() for barber in barbers]
+     return [barber.informations() for barber in barbers]
 
 def get_one_barber(id):
    barber = Barbeiro.query.get(id)
+   if not barber:
+      raise BarbeiroNaoEncontrado
    return barber.dicionario()
 
 def create_new_barber(data):

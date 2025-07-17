@@ -13,7 +13,7 @@ barber_blueprint = Blueprint('barbeiros',__name__)
 def mostrar_barbeiros():
     return jsonify(get_all_barbers()),200
 
-@barber_blueprint.route('/barbearia/barbeiro/<int:id>',methods=['GET'])
+@barber_blueprint.route('/barbearia/barbeiros/<int:id>',methods=['GET'])
 def mostrar_barbeiro_por_id(id):
       try:
          return jsonify(get_one_barber(id)),200
@@ -21,7 +21,7 @@ def mostrar_barbeiro_por_id(id):
            return jsonify({'Erro':'Esse barbeiro não existe ou não foi encontrado'}),404
 
 
-@barber_blueprint.route('/barbearia/barbeiro',methods=['POST'])
+@barber_blueprint.route('/barbearia/barbeiros',methods=['POST'])
 def criar_novo_barbeiro():
    try:
     data = request.get_json()
@@ -30,7 +30,7 @@ def criar_novo_barbeiro():
    except BarbeiroNaoEncontrado:
        return jsonify({'Erro':'Esse barbeiro não existe ou não foi cadastrado!!'}),404
    
-@barber_blueprint.route('/barbearia/barbeiro/<int:id>',methods=['PUT'])
+@barber_blueprint.route('/barbearia/barbeiros/<int:id>',methods=['PUT'])
 def atualizar_barbeiro(id):
    try:
     updated_data = request.json
@@ -39,7 +39,7 @@ def atualizar_barbeiro(id):
    except BarbeiroNaoEncontrado:
        return jsonify({'Erro':'Esse barbeiro não existe ou não foi encontrado!'}),404
 
-@barber_blueprint.route('/barbearia/barbeiro/<int:id>',methods=['DELETE'])
+@barber_blueprint.route('/barbearia/barbeiros/<int:id>',methods=['DELETE'])
 def deletar_barbeiro(id):
      try:
         deleted_barber = delete_barber(id)

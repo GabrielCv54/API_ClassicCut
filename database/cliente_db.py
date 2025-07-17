@@ -16,34 +16,34 @@ class Cliente(db.Model):
     barber_id = db.Column(db.Integer,db.ForeignKey('Barbeiro.id'))
     barber = db.relationship('Barbeiro',back_populates='agendamentos')
    
-    def __init__(self,id,name,age,telephone,service):
+    def __init__(self,id,name,age,telephone,service,barber_id):
         self.id = id
         self.name = name
         self.age = age
         self.telephone = telephone
         self.service = service
+        self.barber_id = barber_id
 
     def dicionario(self):
-        return {'id':self.id,'nome':self.name,'idade':self.age,'telefone':self.telephone,'serviço':self.service,'barber_id':self.barber_id}
+        return {'id':self.id,'nome':self.name,'idade':self.age,'telefone':self.telephone,'serviço':self.service,'barbeiro_responsável':self.barber_id}
+    
+    def info(self):
+        return self.dicionario()
     
 class CustomerNotFound(Exception):
     pass
 
 def get_all_clients():
      clientes = Cliente.query.all()
-     return [cliente.dicionario() for cliente in clientes]
+     return [cliente.info() for cliente in clientes]
 
 def get_one_client(id):
     client = Cliente.query.get(id)
     if not client :
-        raise CustomerNotFound
-    return client
+        raise CustomerNotFound 
+    return client.info()
 
 def create_cliente(data):
-    barbeiro_id = data.get('barber_id')
-    barbeiro_objeto = Barbeiro.query.get(barbeiro_id)
-    if not barbeiro_objeto:
-        raise CustomerNotFound
     new_client = Cliente(id=data['id'],name=data['nome'],age=data['idade'],telephone=data['telefone'],service=data['serviço'],barber_id=data['barbeiro_responsável'])
     db.session.add(new_client)
     db.session.commit()
@@ -53,12 +53,11 @@ def update_client(id,updated):
     client = Cliente.query.get(id)
     if not client:
         raise CustomerNotFound
-    updated.id = client['id']
-    updated.name = client['nome']
-    updated.age = client['idade']
-    updated.telephone = client['telefone']
-    updated.service = client['serviço']
-    db.session.add(updated)
+    client.id = updated['id']
+    client.name = updated['nome']
+    client.age = updated['idade']
+    client.telephone = updated['telefone']
+    client.service = updated['serviço']
     db.session.commit()
 
 
