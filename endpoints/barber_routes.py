@@ -25,7 +25,7 @@ def mostrar_barbeiro_por_id(id):
 def criar_novo_barbeiro():
    try:
     data = request.get_json()
-    post = create_new_barber(data)
+    create_new_barber(data)
     return jsonify({'Mensagem':'Barbeiro criado!'}),201
    except BarbeiroNaoEncontrado:
        return jsonify({'Erro':'Esse barbeiro não existe ou não foi cadastrado!!'}),404

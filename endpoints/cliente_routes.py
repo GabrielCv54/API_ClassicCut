@@ -1,8 +1,10 @@
 from flask import request,jsonify,Blueprint
 from database.cliente_db import( create_cliente,get_all_clients,get_one_client,delete_client,update_client,CustomerNotFound )
-
+import os
 
 client_blueprint = Blueprint('clientes',__name__)
+
+key = os.getenv('my_key','s01454')
 
 @client_blueprint.route('/barbearia/clientes',methods=['GET'])
 def get_clients():
