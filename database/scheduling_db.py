@@ -28,7 +28,7 @@ class SchedulingNotFound(Exception):
 
 def get_all_schedulings():
      scheduling = Agendamento.query.all()
-     return [sch.info() for sch in scheduling ]
+     return [sch.info() for sch in scheduling]
 
 def get_one_scheduling(id):
      scheduling = Agendamento.query.get(id)

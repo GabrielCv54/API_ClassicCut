@@ -33,7 +33,7 @@ def atualizar_cliente(id):
 @client_blueprint.route('/barbearia/clientes/<int:id>',methods=['DELETE'])
 def deletar_cliente(id):
     try:
-        deleted_client = delete_client(id)
+        delete_client(id)
         return jsonify({'Mensagem':'Cliente Deletado!!'}),204
     except CustomerNotFound:
         return jsonify({'Erro':'Verifique novamente o id do cliente'}),404
