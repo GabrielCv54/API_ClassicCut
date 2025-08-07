@@ -4,16 +4,17 @@ class Agendamento(db.Model):
      __tablename__ = 'Agendamento'
 
      id = db.Column(db.Integer,primary_key=True)
-     day = db.Column(db.Datetime,nullable=False)
+     day = db.Column(db.DateTime,nullable=False)
      hour = db.Column(db.Time,nullable=False)
-     barber = db.Column(db.ForeignKey('Barbeiro.id'))
      client = db.Column(db.ForeignKey('Cliente.id'))
+     barber_id = db.Column(db.Integer,db.ForeignKey('Barbeiro.id'))
+     barber = db.relationship('Barbeiro',back_populates='appointments')
 
-     def __init__(self,id,day,hour,barber,client):
+     def __init__(self,id,day,hour,barber_id,client):
           self.id = id
           self.day = day
           self.hour = hour
-          self.barber = barber
+          self.barber_id = barber_id
           self.client = client
           
 
