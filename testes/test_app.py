@@ -8,21 +8,21 @@ today = datetime.date.today()
 #Dicionário de exemplo da barbearia
 barbershop= {
     'Barbeiros':[
-        {"id":1,"barbeiro":"Edgar Rodrigues","idade":18,"agendamentos":[],"local de trabalho":"Their Space"}
+        {"id":1,"barbeiro":"Edgar Rodrigues","idade":36,"agendamentos":[],"local de trabalho":"Their Space"}
         ],
     'Clientes':[
-        {"id":100,"nome":"Lucas Moura","idade":29,"CPF":459896614,"telefone":"1194699999","serviço":""},
+        {"id":100,"nome":"Lucas Moura","idade":29,"telefone":"1194699999","serviço":""},
         {'id':200,'Nome':'Kauan De moraes','Idade':36,'CPF':57812484041,'Horário_Agendamento':datetime.time(10,0).isoformat(),'Dia_agendamento':'Sexta,27 de junho'}
         ],
     "Agendamentos":[
-        {'id':1,'dia':'28 de Junho','horário':'17h40','cabeleireiro':1,'Cliente':100},
-        {'id':2,'dia':'27 de Junho','horário':'9h','cabeleireiro':2}
+        {"id":1,"dia":"28 de Junho","horário":"17h40","barbeiro":1,"cliente":100},
+        {'id':2,'dia':'27 de Junho','horário':'9h','barbeiro':2,"cliente":200}
         ]
     }
 
 barbers = barbershop['Barbeiros']
 clients = barbershop['Clientes']
-
+appointments = barbershop['Agendamentos']
 
 def requisition_api():
       requisition = r.get(url)
@@ -56,6 +56,8 @@ def test_se_idade_maior_que_150():
 def test_verificar_se_o_cpf_e_valido():
     pass      
 
+def test_agendamento_existe():
+     pass
 '''age_barber = datetime.datetime.now() - datetime.datetime(2022,10,2)
 print(age_barber.days)'''
 
