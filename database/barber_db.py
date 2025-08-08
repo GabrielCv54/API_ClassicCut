@@ -18,7 +18,7 @@ class Barbeiro(db.Model):
        self.appointments = appointments
 
     def dicionario(self):
-     return {'id':self.id,'barbeiro':self.barbeiro,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':[agendamento.dicionario() for agendamento in self.appointments]}
+     return {'id':self.id,'barbeiro':self.barbeiro,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':[agendamento for agendamento in self.appointments]}
     
     def informations(self):
      return self.dicionario()
@@ -38,18 +38,20 @@ def get_one_barber(id):
    return barber.dicionario()
 
 def create_new_barber(data):
-   new_barber = Barbeiro(id=data.get('id'),name=data['barbeiro'],age=data['idade'],workplace=data['local de trabalho'],appointments=data.get('agendamentos',[]))
+   new_barber = Barbeiro(id=data['id'],name=data['barbeiro'],age=data['idade'],workplace=data['local de trabalho'],appointments=data.get('agendamentos',[]))
    db.session.add(new_barber)
    db.session.commit()
 
 
 def update_barber(id,data):
     barber = Barbeiro.query.get(id)
-    data.id = barber['id']
-    data.name = barber['nome']
-    data.age = barber['idade']
-    data.workplace = barber['local de trabalho']
-    data.appointments = barber['agendamentos']
+    if not barber:
+       raise BarbeiroNaoEncontrado
+    barber.id = data['id']
+    barber.name = data['barbeiro']
+    barber.age = data['idade']
+    barber.workplace = data['local de trabalho']
+    barber.appointments = data['agendamentos']
     db.session.commit()
 
 def delete_barber(id):

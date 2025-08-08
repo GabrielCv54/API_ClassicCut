@@ -1,12 +1,14 @@
 from app import db
+from datetime import datetime
+
 
 class Agendamento(db.Model):
      __tablename__ = 'Agendamento'
 
      id = db.Column(db.Integer,primary_key=True)
-     day = db.Column(db.DateTime,nullable=False)
+     day = db.Column(db.Date,nullable=False)
      hour = db.Column(db.Time,nullable=False)
-     client = db.Column(db.ForeignKey('Cliente.id'))
+     client = db.Column(db.Integer,db.ForeignKey('Cliente.id'))
      barber_id = db.Column(db.Integer,db.ForeignKey('Barbeiro.id'))
      barber = db.relationship('Barbeiro',back_populates='appointments')
 
@@ -38,7 +40,8 @@ def get_one_scheduling(id):
      return scheduling.info()
 
 def create_new_scheduling(data):
-     new = Agendamento(id=data['id'],day=data['dia'],hour=data['hora'],barber=data['barbeiro'],client=data['cliente'])
+     d = datetime.strptime(f'{data['dia']} {data['horário']}','%Y-%m-%d %H:%M:%S')
+     new = Agendamento(id=int(data['id']),day=(d.date()),hour=(d.time()),barber_id=int(data['barbeiro']),client=int(data['cliente']))
      db.session.add(new)
      db.session.commit()
 
@@ -48,7 +51,7 @@ def update_scheduling(id,data):
           raise SchedulingNotFound
      scheduling.id = data['id']
      scheduling.day = data['dia']
-     scheduling.hour = data['hora']
+     scheduling.hour = data['horário']
      scheduling.barber = data['barbeiro']
      scheduling.client = data['cliente']
      db.session.commit()
