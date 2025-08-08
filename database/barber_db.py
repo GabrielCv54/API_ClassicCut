@@ -8,7 +8,7 @@ class Barbeiro(db.Model):
     barbeiro = db.Column(db.String(100),nullable=False)
     idade = db.Column(db.Integer)
     local_de_trabalho = db.Column(db.String(70),nullable=False)
-    appointments = db.relationship('Agendamento',back_populates='barber')
+    agendamentos = db.relationship('Agendamento',back_populates='barber')
 
     def __init__(self,id,name,age,workplace,appointments):
        self.id = id
@@ -18,7 +18,7 @@ class Barbeiro(db.Model):
        self.appointments = appointments
 
     def dicionario(self):
-     return {'id':self.id,'barbeiro':self.barbeiro,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':[agendamento for agendamento in self.appointments]}
+     return {'id':self.id,'barbeiro':self.barbeiro,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':[agendamento.dicionario() for agendamento in self.appointments]}
     
     def informations(self):
      return self.dicionario()

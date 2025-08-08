@@ -10,7 +10,7 @@ class Agendamento(db.Model):
      hour = db.Column(db.Time,nullable=False)
      client = db.Column(db.Integer,db.ForeignKey('Cliente.id'))
      barber_id = db.Column(db.Integer,db.ForeignKey('Barbeiro.id'))
-     barber = db.relationship('Barbeiro',back_populates='appointments')
+     barber = db.relationship('Barbeiro',back_populates='agendamentos')
 
      def __init__(self,id,day,hour,barber_id,client):
           self.id = id
