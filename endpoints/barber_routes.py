@@ -4,6 +4,7 @@ from database.barber_db import (
     )
 import os 
 
+
 #Usar isso daqui para autenticação da API
 # secret_key = os.getenv('chave secreta','Key')
 
@@ -12,6 +13,7 @@ barber_blueprint = Blueprint('barbeiros',__name__)
 @barber_blueprint.route('/barbearia/barbeiros',methods=['GET'])
 def mostrar_barbeiros():
     return jsonify(get_all_barbers()),200
+
 
 @barber_blueprint.route('/barbearia/barbeiros/<int:id>',methods=['GET'])
 def mostrar_barbeiro_por_id(id):
@@ -34,7 +36,7 @@ def criar_novo_barbeiro():
 def atualizar_barbeiro(id):
    try:
     updated_data = request.json
-    put = update_barber(id,updated_data)
+    update_barber(id,updated_data)
     return jsonify({'Mensagem':'Barbeiro Atualizado!'}),201
    except BarbeiroNaoEncontrado:
        return jsonify({'Erro':'Esse barbeiro não existe ou não foi encontrado!'}),404

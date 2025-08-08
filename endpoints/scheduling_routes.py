@@ -5,7 +5,7 @@ agendamento_blueprint = Blueprint('agendamentos',__name__)
 
 @agendamento_blueprint.route('/barbearia/agendamentos',methods=['GET'])
 def mostrar_agendamentos():
-    return jsonify(get_all_schedulings())
+    return jsonify(get_all_schedulings()),200
 
 @agendamento_blueprint.route('/barbearia/agendamentos/<int:id>',methods=['GET'])
 def mostrar_um_agendamento(id):
