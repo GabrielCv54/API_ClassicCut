@@ -1,10 +1,12 @@
 from app import db,api
 from endpoints.barber_routes import barber_blueprint
 from endpoints.cliente_routes import client_blueprint
+from endpoints.scheduling_routes import agendamento_blueprint
 
 
 api.register_blueprint(barber_blueprint)
 api.register_blueprint(client_blueprint)
+api.register_blueprint(agendamento_blueprint)
 
 #db.create_all(api)
 
