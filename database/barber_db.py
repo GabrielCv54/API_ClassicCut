@@ -18,7 +18,7 @@ class Barbeiro(db.Model):
        self.appointments = appointments
 
     def dicionario(self):
-     return {'id':self.id,'barbeiro':self.barbeiro,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':[agendamento for agendamento in self.appointments]}
+     return {'id':self.id,'barbeiro':self.barbeiro,'idade':self.idade,'local de trabalho': self.local_de_trabalho,'agendamentos':[agendamento.id for agendamento in self.appointments]}
     
     def informations(self):
      return self.dicionario()
@@ -41,7 +41,6 @@ def create_new_barber(data):
    new_barber = Barbeiro(id=data['id'],name=data['barbeiro'],age=data['idade'],workplace=data['local de trabalho'],appointments=data.get('agendamentos',[]))
    db.session.add(new_barber)
    db.session.commit()
-
 
 def update_barber(id,data):
     barber = Barbeiro.query.get(id)

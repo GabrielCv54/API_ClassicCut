@@ -5,7 +5,7 @@ from datetime import datetime
 class Agendamento(db.Model):
      __tablename__ = 'Agendamento'
 
-     id = db.Column(db.Integer,primary_key=True)
+     id = db.Column(db.Integer,primary_key=True,nullable=False)
      day = db.Column(db.Date,nullable=False)
      hour = db.Column(db.Time,nullable=False)
      client = db.Column(db.Integer,db.ForeignKey('Cliente.id'))
@@ -21,7 +21,7 @@ class Agendamento(db.Model):
           
 
      def dici(self):
-          return {'id':self.id,'dia':self.day,'horário':self.hour,'barbeiro':self.barber,'cliente':self.client}
+          return {'id':self.id,'dia':str(self.day),'horário':str(self.hour),'barbeiro':self.barber_id,'cliente':self.client}
   
      def info(self):
           return self.dici()
@@ -46,13 +46,15 @@ def create_new_scheduling(data):
      db.session.commit()
 
 def update_scheduling(id,data):
+     date = datetime.strptime(f'{data['dia']} {data['horário']}',
+     '%Y-%m-%d %H:%M:%S')
      scheduling = Agendamento.query.get(id)
      if not scheduling:
           raise SchedulingNotFound
      scheduling.id = data['id']
-     scheduling.day = data['dia']
-     scheduling.hour = data['horário']
-     scheduling.barber = data['barbeiro']
+     scheduling.day = date.date()
+     scheduling.hour = date.time()
+     scheduling.barber_id = data['barbeiro']
      scheduling.client = data['cliente']
      db.session.commit()
 
@@ -60,5 +62,5 @@ def delete_scheduling(id):
      deleted = Agendamento.query.get(id)
      if not deleted:
           raise SchedulingNotFound
-     db.session.delete(id)
+     db.session.delete(deleted)
      db.session.commit()
