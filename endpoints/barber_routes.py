@@ -3,10 +3,8 @@ from database.barber_db import (
    create_new_barber,delete_barber,BarbeiroNaoEncontrado,get_all_barbers,get_one_barber,update_barber,
     )
 import os 
-
-
-#Usar isso daqui para autenticação da API
-# secret_key = os.getenv('chave secreta','Key')
+from datetime import datetime,timedelta
+from flask_jwt_extended import create_access_token,jwt_required
 
 barber_blueprint = Blueprint('barbeiros',__name__)
 
@@ -31,7 +29,17 @@ def criar_novo_barbeiro():
     return jsonify({'Mensagem':'Barbeiro criado!'}),201
    except BarbeiroNaoEncontrado:
        return jsonify({'Erro':'Esse barbeiro não existe ou não foi cadastrado!!'}),404
-   
+
+@barber_blueprint.route('/barbearia/barbeiros/login',methods=['POST'])   
+def barber_login():
+   barbers = get_all_barbers()
+   user = request.json.get('user',None)
+   password = request.json.get('senha',None)
+
+   for b in barbers:
+      if user != f'{b.name}' or password != 'QWPjFGGX':
+         return jsonify({'A senha ou o nome do cliente está errado!'}),400
+
 @barber_blueprint.route('/barbearia/barbeiros/<int:id>',methods=['PUT'])
 def atualizar_barbeiro(id):
    try:
@@ -44,8 +52,8 @@ def atualizar_barbeiro(id):
 @barber_blueprint.route('/barbearia/barbeiros/<int:id>',methods=['DELETE'])
 def deletar_barbeiro(id):
      try:
-        deleted_barber = delete_barber(id)
-        return jsonify({'Mensagem':'Barbeiro Excluido'}),200
+        delete_barber(id)
+        return jsonify({'Mensagem':'Barbeiro Excluido'}),204
      except BarbeiroNaoEncontrado:
       return jsonify({'Erro':'Barbeiro com esse id não foi encontrado'}),404
 

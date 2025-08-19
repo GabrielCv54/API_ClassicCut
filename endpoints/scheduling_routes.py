@@ -29,10 +29,10 @@ def atualizar_agendamento(id):
     except SchedulingNotFound: 
         return jsonify({'Erro':'Agendamento não encontrado!'}),404
     
-@agendamento_blueprint.route('/barbearia/agendamentos/<int:id>')
+@agendamento_blueprint.route('/barbearia/agendamentos/<int:id>',methods=['DELETE'])
 def deletar_agendamento(id):
     try:
-        delete_scheduling(id)
+        delete_scheduling(id=id)
         return jsonify({'Sucesso':'Agendamento excluído!!'}),204
     except SchedulingNotFound:
         return jsonify({'Erro':'Agendamento não encontrado!!!'}),404
