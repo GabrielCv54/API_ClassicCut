@@ -4,7 +4,7 @@ from database.barber_db import (
     )
 import os 
 from datetime import datetime,timedelta
-from flask_jwt_extended import create_access_token,jwt_required
+#from flask_jwt_extended import create_access_token,jwt_required
 
 barber_blueprint = Blueprint('barbeiros',__name__)
 
