@@ -4,7 +4,7 @@ import os
 
 client_blueprint = Blueprint('clientes',__name__)
 
-key = os.getenv('my_key','s01454')
+#key = os.getenv('my_key','s01454')
 
 @client_blueprint.route('/barbearia/clientes',methods=['GET'])
 def get_clients():

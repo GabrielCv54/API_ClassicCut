@@ -1,6 +1,6 @@
-from flask import jsonify,request,Blueprint
+from flask import jsonify,request,Blueprint,render_template,redirect,url_for
 from database.barber_db import (
-   create_new_barber,delete_barber,BarbeiroNaoEncontrado,get_all_barbers,get_one_barber,update_barber,
+   create_new_barber,delete_barber,BarbeiroNaoEncontrado,get_all_barbers,get_one_barber,update_barber,Barbeiro
     )
 import os 
 from datetime import datetime,timedelta
@@ -32,13 +32,13 @@ def criar_novo_barbeiro():
 
 @barber_blueprint.route('/barbearia/barbeiros/login',methods=['POST'])   
 def barber_login():
-   barbers = get_all_barbers()
-   user = request.json.get('user',None)
-   password = request.json.get('senha',None)
-
-   for b in barbers:
-      if user != f'{b.name}' or password != 'QWPjFGGX':
-         return jsonify({'A senha ou o nome do cliente está errado!'}),400
+   data = request.get_json()
+   if not data:
+      return jsonify({'Dados de login não fornecidos'}),400
+   if 'barbeiro' not in data or 'senha' not in data:
+      return jsonify({'Os campos de barbeiro e senha são obrigatórios!'}),400
+   if data['barbeiro'] == 'ad' and data['senha'] == 'mA8F?12r':
+      pass
 
 @barber_blueprint.route('/barbearia/barbeiros/<int:id>',methods=['PUT'])
 def atualizar_barbeiro(id):
@@ -56,5 +56,3 @@ def deletar_barbeiro(id):
         return jsonify({'Mensagem':'Barbeiro Excluido'}),204
      except BarbeiroNaoEncontrado:
       return jsonify({'Erro':'Barbeiro com esse id não foi encontrado'}),404
-
-
