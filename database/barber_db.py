@@ -58,3 +58,7 @@ def delete_barber(id):
    db.session.delete(barber_delete)
    db.session.commit()
 
+def delete_all_barbers():
+   barbers = Barbeiro.query.all()
+   db.session.delete(barbers)
+   db.session.commit()
