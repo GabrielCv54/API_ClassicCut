@@ -1,6 +1,6 @@
 FROM python:3.13
 
-WORKDIR /run
+WORKDIR /API-ClassicCut
 
 COPY requirements.txt .
 
