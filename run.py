@@ -15,4 +15,4 @@ with api.app_context():
 
 
 if __name__ == '__main__':
-    api.run(debug=True)
+    api.run(debug=api.config['DEBUG'],port=api.config['PORT'],host=api.config['HOST'])
