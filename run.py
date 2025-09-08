@@ -8,8 +8,6 @@ api.register_blueprint(barber_blueprint)
 api.register_blueprint(client_blueprint)
 api.register_blueprint(agendamento_blueprint)
 
-#db.create_all(api)
-
 with api.app_context():
     db.create_all()
 
