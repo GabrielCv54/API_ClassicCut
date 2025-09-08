@@ -1,12 +1,12 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-#from flask_jwt_extended  import JWTManager
+from flask_jwt_extended  import JWTManager
 import os
 """ import jwt
  """
 
 api = Flask(__name__)
-#jwt = JWTManager(api)
+jwt = JWTManager(api)
 
 api.config['JWT_SECRET_KEY'] = os.environ.get('key_jwt','Key')
 api.config['JSON_AS_ASCII'] = False
