@@ -21,4 +21,4 @@ def test_verifica_se_o_nome_string():
         if type(nome)!= str:
            raise ValueError('O id só pode ser do tipo inteiro!')
         else:
-            return {'Tudo certo, barbeiro com nome ok!!!'}
+            return {'Sucesso':'Tudo certo, barbeiro com nome ok!!!'}
