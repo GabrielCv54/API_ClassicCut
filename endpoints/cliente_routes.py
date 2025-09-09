@@ -15,7 +15,7 @@ def get_client(id):
     try:
         return jsonify(get_one_client(id)),200
     except CustomerNotFound:
-        return jsonify({'Erro':'O cliente não existe ou não foi encontrado!!'}),404
+        return jsonify({'Erro':'O cliente não foi encontrado!!'}),404
 
 @client_blueprint.route('/barbearia/clientes',methods=['POST'])
 def criar_novo_cliente():
