@@ -50,7 +50,7 @@ def update_barber(id,data):
     barber.name = data['barbeiro']
     barber.age = data['idade']
     barber.workplace = data['local de trabalho']
-    barber.appointments = data['agendamentos']
+    barber.agendamentos = data['agendamentos']
     db.session.commit()
 
 def delete_barber(id):
