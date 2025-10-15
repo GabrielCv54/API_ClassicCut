@@ -13,20 +13,18 @@ class Cliente(db.Model):
     age = db.Column(db.Integer)
     telephone = db.Column(db.String(12),nullable=False)
     service = db.Column(db.String(50),nullable=False)
-    password = db.Column(db.String(128),nullable=False,default="")
 
    
-    def __init__(self,id,name,age,telephone,service,password):
+    def __init__(self,id,name,age,telephone,service):
         self.id = id
         self.name = name
         self.age = age
         self.telephone = telephone
         self.service = service
-        self.password = password
         
 
     def dicionario(self):
-        return {'id':self.id,'nome':self.name,'idade':self.age,'telefone':self.telephone,'serviço':self.service,'senha':self.password}
+        return {'id':self.id,'nome':self.name,'idade':self.age,'telefone':self.telephone,'serviço':self.service}
     
     def info(self):
         return self.dicionario()
