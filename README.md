@@ -26,7 +26,7 @@ Logo após , será gerado o link `127.0.0.1` , e esse link deve ser colado no na
 Exemplo: '127.0.0.1/barbearia/barbeiros' | '127.0.0.1/barbearia/clientes' | 
 
 ### Barbeiro
-Exemplo de retorno 
+Exemplos de retorno
 ```
  {
         "agendamentos": [
@@ -38,11 +38,30 @@ Exemplo de retorno
         "idade": 36,
         "local de trabalho": "Their Space"
     } 
-    ```
-.O atributo agendamento na entidade barbeiro, mostra os id's dos agendamentos do qual o barbeiro irá realizar.
+
+.O atributo agendamento na entidade barbeiro, mostra os id's dos agendamentos do qual o barbeiro irá realizar. Lembrando que , o atributo agendamentos não é uma coluna no banco , apenas um objeto que faz o relacionamento entre barbeiros e agendamentos.
+```
 
 ### Cliente
+```
+    {
+        "age": 19,
+        "id": 150,
+        "name": "marcelo",
+        "service": "corte de cabelo longo",
+        "telephone": "1196958787"
+    }
+```
 . Os clientes também tem seus dados armazenados na API para garantir aos barbeiros a integridade dos clientes que eles irão atender.
 
 ### Agendamento
-Cada agendamento
+```
+    {
+        "barbeiro": 1,
+        "cliente": 100,
+        "dia": "2024-01-17",
+        "horário": "17:40:00",
+        "id": 1
+    }
+```
+Cada agendamento possui também os id's de barbeiro e cliente que fazem parte , para assim o sistema também fazer o relacionamento entre as tabelas.
