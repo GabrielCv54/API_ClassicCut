@@ -36,5 +36,3 @@ def deletar_agendamento(id):
         return jsonify({'Sucesso':'Agendamento excluído!!'}),204
     except SchedulingNotFound:
         return jsonify({'Erro':'Agendamento não encontrado!!!'}),404
-    except Exception as err:
-        return jsonify({"Erro":f"Problema no Servidor : {err}"}),500
