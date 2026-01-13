@@ -24,7 +24,7 @@ class Cliente(db.Model):
         
 
     def dicionario(self):
-        return {'id':self.id,'nome':self.name,'idade':self.age,'telefone':self.telephone,'serviço':self.service}
+        return {'id':self.id,'name':self.name,'age':self.age,'telephone':self.telephone,'service':self.service}
     
     def info(self):
         return self.dicionario()
@@ -43,7 +43,7 @@ def get_one_client(id):
     return client.info()
 
 def create_cliente(data):
-    new_client = Cliente(id=data['id'],name=data['nome'],age=data['idade'],telephone=data['telefone'],service=data['serviço'])
+    new_client = Cliente(id=data['id'],name=data['name'],age=data['age'],telephone=data['telephone'],service=data['service'])
     db.session.add(new_client)
     db.session.commit()
     
@@ -53,10 +53,10 @@ def update_client(id,updated):
     if not client:
         raise CustomerNotFound
     client.id = updated['id']
-    client.name = updated['nome']
-    client.age = updated['idade']
-    client.telephone = updated['telefone']
-    client.service = updated['serviço']
+    client.name = updated['name']
+    client.age = updated['age']
+    client.telephone = updated['telephone']
+    client.service = updated['service']
     db.session.commit()
 
 
