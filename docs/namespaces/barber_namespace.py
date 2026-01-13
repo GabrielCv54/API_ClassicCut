@@ -1,10 +1,9 @@
 from flask_restx import fields,Resource,Namespace
-from database.barber_db import (update_barber,get_one_barber,get_all_barbers,delete_barber,delete_all_barbers,create_new_barber)
+from endpoints.barber_routes import (update_barber,get_one_barber,get_all_barbers,delete_barber,create_new_barber,BarbeiroNaoEncontrado)
 
-barber_ns = Namespace('barbeiros',description='Operações de Barbeiro')
+barber_ns = Namespace('Barbeiro',description='Operações de Barbeiro')
 
 barber_model = barber_ns.model('Barbeiro',{
-    'id':fields.Integer(required=True,description='Id do barbeiro'),
     "barbeiro": fields.String(required=True,description='Nome do barbeiro'),
     "idade":fields.Integer(description="Idade do barbeiro"),
     "local de trabalho":fields.String(required=True,description="Local onde o barbeiro trabalha"),

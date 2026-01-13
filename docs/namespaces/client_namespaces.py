@@ -1,10 +1,10 @@
 from flask_restx import Namespace,Resource,fields
-from endpoints.cliente_routes import update_client,create_cliente,delete_client,get_all_clients,get_one_client
+from endpoints.cliente_routes import update_client,create_cliente,delete_client,get_all_clients,get_one_client,CustomerNotFound
+from app import api
 
-client_ns = Namespace('clientes',description='Operações relacionadas aos clientes')
+client_ns = Namespace('Cliente',description='Operações relacionadas aos clientes')
 
 client_model = client_ns.model("Cliente",{
-    'id':fields.Integer(required=True,description="Id do cliente"),
     "name":fields.String(required=True, description="Nome do cliente"),
     "age": fields.Integer(description="Idade do cliente"),
     "telephone": fields.String(required=True, description='Telefone do cliente'),
