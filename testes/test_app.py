@@ -7,16 +7,16 @@ url_barber = 'http://127.0.0.1:5000/barbearia/barbeiros'
 #Dicionário de exemplo da barbearia
 barbershop = {
     'Barbeiros':[
-        {"id":1,"barbeiro":"Edgar Rodrigues","idade":36,"agendamentos":[1],"local de trabalho":"Their Space"},
+        {"barbeiro":"Edgar Rodrigues","idade":36,"agendamentos":[1],"local de trabalho":"Their Space"},
          {"id":2,"barbeiro":"Roman rodriguez","idade":32,"agendamentos":[2],"local de trabalho":"El muchacho"}
         ],
     'Clientes':[
-        {"id":100,"nome":"Lucas Moura","idade":29,"telefone":"1194699999","serviço":""},
+        {"name":"Lucas Moura","age":29,"telephone":"1194699999","service":""},
         {'id':200,'nome':'Kauan De moraes','idade':36,'telefone':'11965489996','serviço':'corte e barba'},
         {'id':300,'nome':'Elias de nobrega','idade':23,'telefone':'8589644322','serviço':'Corte longo'}
         ],
     "Agendamentos":[
-        {"id":1,"dia":"2025-06-28","horário":"17:40:00","barbeiro":1,"cliente":100},
+        {"id":1,"dia":"2025-06-28","horário":"17:40:00","barbeiro":1,"cliente":1},
         {'id':2,'dia':'2025-07-25','horário':'9:00:00','barbeiro':2,"cliente":200},
          {'id':3,'dia':'2025-10-08','horário':'09:00:00','barbeiro':2,"cliente":200}
         ]
