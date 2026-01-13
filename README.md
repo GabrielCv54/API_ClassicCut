@@ -9,7 +9,7 @@ Esse projeto é um projeto que estou desenvolvendo uma API que gerencia uma barb
 - Flask
 - Docker🐋
 - Flask SQLAlchemy
-- POSTMAN
+- POSTMAN👩‍🚀
 
 ### Como baixar
 ` git clone https://github.com/GabrielCv54/API_ClassicCut.git `

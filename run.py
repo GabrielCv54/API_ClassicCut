@@ -6,6 +6,7 @@ from endpoints.auth_routes import auth_blueprint
 from docs.swagger import api_s
 from docs.namespaces.barber_namespace import barber_ns
 from docs.namespaces.client_namespaces import client_ns
+from docs.namespaces.scheduling_namespaces import scheduling_ns
 
 #Registro dos blueprints
 api.register_blueprint(barber_blueprint)
@@ -16,6 +17,7 @@ api.register_blueprint(agendamento_blueprint)
 #Registro dos namespaces
 api_s.add_namespace(barber_ns)
 api_s.add_namespace(client_ns)
+api_s.add_namespace(scheduling_ns)
 
 with api.app_context():
     db.create_all()
