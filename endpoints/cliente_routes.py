@@ -1,6 +1,7 @@
 from flask import request,jsonify,Blueprint
-from database.cliente_db import( create_cliente,get_all_clients,get_one_client,delete_client,update_client,CustomerNotFound )
+from database.cliente_db import( create_cliente,get_all_clients,get_one_client,delete_client,update_client,CustomerNotFound ,delete_all_clients)
 import os
+from app import api
 
 client_blueprint = Blueprint('clientes',__name__)
 
@@ -39,3 +40,8 @@ def deletar_cliente(id):
         return jsonify({'Mensagem':'Cliente Deletado!!'}),204
     except CustomerNotFound:
         return jsonify({'Erro':'Verifique novamente o id do cliente'}),404
+    
+@client_blueprint.route('/barbearia/barbeiros',methods=['DELETE'])
+def deletar_clientes():
+   clientes= delete_all_clients()
+   return clientes,200
