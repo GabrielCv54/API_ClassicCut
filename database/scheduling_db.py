@@ -1,5 +1,8 @@
 from app import db
 from datetime import datetime
+from .barber_db import Barbeiro
+from .cliente_db import Cliente
+from werkzeug.exceptions import HTTPException
 
 
 class Agendamento(db.Model):
@@ -12,8 +15,7 @@ class Agendamento(db.Model):
      barber_id = db.Column(db.Integer,db.ForeignKey('Barbeiro.id'))
      barber = db.relationship('Barbeiro',back_populates='appointments')
 
-     def __init__(self,id,day,hour,barber_id,client):
-          self.id = id
+     def __init__(self,day,hour,barber_id,client):
           self.day = day
           self.hour = hour
           self.barber_id = barber_id
@@ -26,8 +28,9 @@ class Agendamento(db.Model):
      def info(self):
           return self.dici()
      
-class SchedulingNotFound(Exception):
-     pass
+class SchedulingNotFound(HTTPException):
+     code = 404
+     description = 'Agendamento não foi encontrado.'
 
 def get_all_schedulings():
      scheduling = Agendamento.query.all()
@@ -40,22 +43,38 @@ def get_one_scheduling(id):
      return scheduling.info()
 
 def create_new_scheduling(data):
+     barbers = Barbeiro.query.all()
+     clients = Cliente.query.all() 
      d = datetime.strptime(f'{data['dia']} {data['horário']}','%Y-%m-%d %H:%M:%S')
-     new = Agendamento(id=int(data['id']),day=(d.date()),hour=(d.time()),barber_id=int(data['barbeiro']),client=int(data['cliente']))
+     new = Agendamento(day=(d.date()),hour=(d.time()),barber_id=int(data['barbeiro']),client=int(data['cliente']))
+     '''for barb in barbers:
+          if barb.id != new['barbeiro']:
+               return {'Erro':'Barbeiro não foi encontrado. Portanto ele não pode ser cadastrado no agendamento'}
+     for cli in clients:
+          if cli.id != new['cliente']:
+               return {'Erro':'Cliente não foi encontrado. Portanto ele não pode ser cadastrado no agendamento'}'''
+     
      db.session.add(new)
      db.session.commit()
 
 def update_scheduling(id,data):
+     barbers = Barbeiro.query.all()
+     clients = Cliente.query.all() 
      date = datetime.strptime(f'{data['dia']} {data['horário']}',
      '%Y-%m-%d %H:%M:%S')
      scheduling = Agendamento.query.get(id)
      if not scheduling:
           raise SchedulingNotFound
-     scheduling.id = data['id']
      scheduling.day = date.date()
      scheduling.hour = date.time()
      scheduling.barber_id = data['barbeiro']
+     '''for barb in barbers:
+          if scheduling.barber_id != barb['id']:
+               return {'Erro':f'O barbeiro com id {scheduling.barber_id} não foi encontrado!'}
      scheduling.client = data['cliente']
+     for cli in clients:
+       if scheduling.client != cli['id']:
+            return{'Erro':f'O cliente com id {scheduling.client} não foi encontrado'}'''
      db.session.commit()
 
 def delete_scheduling(id):

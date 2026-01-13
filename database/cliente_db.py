@@ -3,6 +3,7 @@ import datetime
 from .barber_db import Barbeiro
 from werkzeug.security import check_password_hash,generate_password_hash
 import hashlib
+from werkzeug.exceptions import HTTPException
 
 
 class Cliente(db.Model):
@@ -15,8 +16,7 @@ class Cliente(db.Model):
     service = db.Column(db.String(50),nullable=False)
 
    
-    def __init__(self,id,name,age,telephone,service):
-        self.id = id
+    def __init__(self,name,age,telephone,service):
         self.name = name
         self.age = age
         self.telephone = telephone
@@ -29,8 +29,9 @@ class Cliente(db.Model):
     def info(self):
         return self.dicionario()
     
-class CustomerNotFound(Exception):
-    pass
+class CustomerNotFound(HTTPException):
+    code = 404
+    description = 'O cliente não foi encontrado .'
 
 def get_all_clients():
      clientes = Cliente.query.all()
@@ -40,10 +41,10 @@ def get_one_client(id):
     client = Cliente.query.get(id)
     if not client :
         raise CustomerNotFound 
-    return client.info()
+    return client.dicionario()
 
 def create_cliente(data):
-    new_client = Cliente(id=data['id'],name=data['name'],age=data['age'],telephone=data['telephone'],service=data['service'])
+    new_client = Cliente(name=data['name'],age=data['age'],telephone=data['telephone'],service=data['service'])
     db.session.add(new_client)
     db.session.commit()
     
@@ -52,7 +53,6 @@ def update_client(id,updated):
     client = Cliente.query.get(id)
     if not client:
         raise CustomerNotFound
-    client.id = updated['id']
     client.name = updated['name']
     client.age = updated['age']
     client.telephone = updated['telephone']
@@ -65,4 +65,9 @@ def delete_client(id):
     if not client:
         raise CustomerNotFound
     db.session.delete(client)
+    db.session.commit()
+
+def delete_all_clients():
+    clients = Cliente.query.all()
+    db.session.delete(clients)
     db.session.commit()

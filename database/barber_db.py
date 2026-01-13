@@ -1,4 +1,5 @@
 from app import db
+from werkzeug.exceptions import HTTPException
 
 
 class Barbeiro(db.Model):
@@ -10,8 +11,7 @@ class Barbeiro(db.Model):
     local_de_trabalho = db.Column(db.String(70),nullable=False)
     appointments = db.relationship('Agendamento',back_populates='barber')
 
-    def __init__(self,id,name,age,workplace,appointments):
-       self.id = id
+    def __init__(self,name,age,workplace,appointments):
        self.barbeiro = name
        self.idade = age
        self.local_de_trabalho = workplace
@@ -23,8 +23,9 @@ class Barbeiro(db.Model):
     def informations(self):
      return self.dicionario()
 
-class BarbeiroNaoEncontrado(Exception):
-   pass
+class BarbeiroNaoEncontrado(HTTPException):
+   code = 404
+   description = 'Esse barbeiro não existe ou não foi cadastrado!!.'
 
 
 def get_all_barbers():
@@ -38,7 +39,7 @@ def get_one_barber(id):
    return barber.dicionario()
 
 def create_new_barber(data):
-   new_barber = Barbeiro(id=data['id'],name=data['barbeiro'],age=data['idade'],workplace=data['local de trabalho'],appointments=data.get('agendamentos',[]))
+   new_barber = Barbeiro(name=data['barbeiro'],age=data['idade'],workplace=data['local de trabalho'],appointments=data.get('agendamentos',[]))
    db.session.add(new_barber)
    db.session.commit()
 
@@ -46,7 +47,6 @@ def update_barber(id,data):
     barber = Barbeiro.query.get(id)
     if not barber:
        raise BarbeiroNaoEncontrado
-    barber.id = data['id']
     barber.name = data['barbeiro']
     barber.age = data['idade']
     barber.workplace = data['local de trabalho']
