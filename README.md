@@ -70,4 +70,5 @@ Cada agendamento possui também os id's de barbeiro e cliente que fazem parte , 
 Enquanto o projeto estiver lá rodando, você pode utilizar ferramentas como Postman ou Insomnia, para ver os métodos HTTP em ação, abaixo explicando como
 
 ### GET
-![alt text](print_get_barbearia.png)
+<img width="1890" height="1023" alt="print_get_barbearia" src="https://github.com/user-attachments/assets/659894c3-2bc3-44d5-a113-84928e280b6b" />
+
