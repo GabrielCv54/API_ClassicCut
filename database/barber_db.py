@@ -27,6 +27,10 @@ class BarbeiroNaoEncontrado(HTTPException):
    code = 404
    description = 'Esse barbeiro não existe ou não foi cadastrado!!.'
 
+class DataInvalid(HTTPException):
+   code = 400
+   description = 'Dados enviados do jeito incorreto, tente de novo.'
+
 
 def get_all_barbers():
      barbers = Barbeiro.query.all()
