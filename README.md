@@ -65,3 +65,9 @@ Exemplos de retorno
     }
 ```
 Cada agendamento possui também os id's de barbeiro e cliente que fazem parte , para assim o sistema também fazer o relacionamento entre as tabelas.
+
+## Como mexer no projeto
+Enquanto o projeto estiver lá rodando, você pode utilizar ferramentas como Postman ou Insomnia, para ver os métodos HTTP em ação, abaixo explicando como
+
+### GET
+![Método GET]("C:\Users\Gabriel\Pictures\Screenshots\print_get_barbearia.png")
