@@ -39,8 +39,8 @@ Exemplos de retorno
         "local de trabalho": "Their Space"
     } 
 
-.O atributo agendamento na entidade barbeiro, mostra os id's dos agendamentos do qual o barbeiro irá realizar. Lembrando que , o atributo agendamentos não é uma coluna no banco , apenas um objeto que faz o relacionamento entre barbeiros e agendamentos.
 ```
+.O atributo agendamento na entidade barbeiro, mostra os id's dos agendamentos do qual o barbeiro irá realizar. Lembrando que , o atributo agendamentos não é uma coluna no banco , apenas um objeto que faz o relacionamento entre barbeiros e agendamentos.
 
 ### Cliente
 ```
