@@ -1,24 +1,21 @@
 import pytest
 import requests as r
-from test_app import barbers,clients,url
+from test_app import barbershop,clients,url_barber
 
 
 @pytest.fixture()
 def requisition_api():
-      requisition = r.get(url)
-      assert (requisition.status_code == 200)
+      requisition = r.get(url_barber)
+      return requisition.status_code
 
 @pytest.fixture()
-def test_id_barbeiro():
-       for b in barbers:
-            id = b.get('id')
-       assert (type(id) == int)
+def test_id_barbeiro(id):
+       for b in barbershop['Barbeiros']:
+           if  b.get('id') == id:
+            return (b)
 
 @pytest.fixture()
 def test_verifica_se_o_nome_string():
-        for barber in barbers:
+        for barber in barbershop['Barbeiros']:
            nome = barber.get('Nome')
-        if type(nome)!= str:
-           raise ValueError('O id só pode ser do tipo inteiro!')
-        else:
-            return {'Sucesso':'Tudo certo, barbeiro com nome ok!!!'}
+           return {'Mensagem':f'Nome do seu barbeiro: {nome}'}

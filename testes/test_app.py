@@ -1,11 +1,11 @@
 import pytest 
 import requests as r
 
-url = 'http://127.0.0.1:5000/barbearia/barbeiros'
+url_barber = 'http://127.0.0.1:5000/barbearia/barbeiros'
 
-today = datetime.date.today()
+
 #Dicionário de exemplo da barbearia
-barbershop= {
+barbershop = {
     'Barbeiros':[
         {"id":1,"barbeiro":"Edgar Rodrigues","idade":36,"agendamentos":[1],"local de trabalho":"Their Space"},
          {"id":2,"barbeiro":"Roman rodriguez","idade":32,"agendamentos":[2],"local de trabalho":"El muchacho"}
@@ -16,8 +16,8 @@ barbershop= {
         {'id':300,'nome':'Elias de nobrega','idade':23,'telefone':'8589644322','serviço':'Corte longo'}
         ],
     "Agendamentos":[
-        {"id":1,"dia":"28 de Junho","horário":"17h40","barbeiro":1,"cliente":100},
-        {'id':2,'dia':'27 de Junho','horário':'9h','barbeiro':2,"cliente":200},
+        {"id":1,"dia":"2025-06-28","horário":"17:40:00","barbeiro":1,"cliente":100},
+        {'id':2,'dia':'2025-07-25','horário':'9:00:00','barbeiro':2,"cliente":200},
          {'id':3,'dia':'2025-10-08','horário':'09:00:00','barbeiro':2,"cliente":200}
         ]
     }
@@ -27,18 +27,18 @@ clients = barbershop['Clientes']
 appointments = barbershop['Agendamentos']
 
 def requisition_api():
-      requisition = r.get(url)
+      requisition = r.get(url_barber)
       assert (requisition.status_code == 200)
 
-def test_id_barbeiro():
+def test_id_barbeiro(barber,id):
        for b in barbers:
             id = b.get('id')
-       assert (type(id) == int), 'id adicionado corretamente!!'
+       assert (barber == int)
 
 def test_verifica_se_o_nome_string():
         for barber in barbers:
            nome = barber.get('Nome')
-           assert type(nome) == str,"O nome do barbeiro está ok"
+           assert type(nome) != str,"O nome do barbeiro está errado, deve ser uma string"
             
 def test_maior_de_idade():
       for barber in barbers:
@@ -56,16 +56,14 @@ def test_se_idade_maior_que_150():
          
 
 def test_agendamento_existe():
-    schedu_in_barber = barbers['barbeiro']
+    schedu_in_barber = barbers['Barbeiro']
     schedu_id = appointments['id']
     for barber in barbers:
         dici = dict()
         dici['barbeiro'] = schedu_id
-        assert barber.get('id') not in barbers_and_app[''] ,'Agendamento confirmado' 
+        assert barber.get('id') not in '' ,'Agendamento não feito' 
 
-
-'''age_barber = datetime.datetime.now() - datetime.datetime(2022,10,2)
-print(age_barber.days)'''
-
-'''for cli in clients:
-      print(cli)'''
+def test_client_hour():
+     for sch in barbershop['Agendamentos']:
+      assert sch.get('horário') > '23:59:59' , "esse horário não é valido, pois está acima das 24 horas diárias"
+           
