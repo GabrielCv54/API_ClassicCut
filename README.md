@@ -66,7 +66,12 @@ Exemplos de retorno
 ```
 Cada agendamento possui também os id's de barbeiro e cliente que fazem parte , para assim o sistema também fazer o relacionamento entre as tabelas.
 
-## Como mexer no projeto
+## Como rodar o projeto
+```
+python run.py
+```
+
+## Como mexer no projeto(Postman)
 Enquanto o projeto estiver lá rodando, você pode utilizar ferramentas como Postman ou Insomnia, para ver os métodos HTTP em ação, abaixo explicando como
 
 ### GET
