@@ -19,6 +19,12 @@ Nunca se esquecer de ,quando clonar o projeto em sua máquina, também criar e a
 
 ` python -m venv nome do ambiente(normalmente venv ) `
 
+
+## Como rodar o projeto
+```
+python run.py
+```
+
 ## Como funciona
 O projeto foi feito na minha intenção de estudar mais sobre a construção de uma API com Flask, e fiz ele justamente  com esse tema de barbearia para explorar também os relacionamentos entre entidades do banco de dados. Para rodar o projeto, primeiro deve se executar o comando `python run.py`
 
@@ -66,10 +72,6 @@ Exemplos de retorno
 ```
 Cada agendamento possui também os id's de barbeiro e cliente que fazem parte , para assim o sistema também fazer o relacionamento entre as tabelas.
 
-## Como rodar o projeto
-```
-python run.py
-```
 
 ## Como mexer no projeto(Postman)
 Enquanto o projeto estiver lá rodando, você pode utilizar ferramentas como Postman ou Insomnia, para ver os métodos HTTP em ação, abaixo explicando como
