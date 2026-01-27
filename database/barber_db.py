@@ -11,9 +11,9 @@ class Barbeiro(db.Model):
     local_de_trabalho = db.Column(db.String(70),nullable=False)
     appointments = db.relationship('Agendamento',back_populates='barber')
 
-    def __init__(self,name,age,workplace,appointments):
-       self.barbeiro = name
-       self.idade = age
+    def __init__(self,nome,idade,workplace,appointments):
+       self.barbeiro = nome
+       self.idade = idade
        self.local_de_trabalho = workplace
        self.appointments = appointments
 
@@ -51,10 +51,9 @@ def update_barber(id,data):
     barber = Barbeiro.query.get(id)
     if not barber:
        raise BarbeiroNaoEncontrado
-    barber.name = data['barbeiro']
-    barber.age = data['idade']
+    barber.nome = data['barbeiro']
+    barber.idade = data['idade']
     barber.workplace = data['local de trabalho']
-    barber.agendamentos = data['agendamentos']
     db.session.commit()
 
 def delete_barber(id):

@@ -37,9 +37,6 @@ class DataInvalid(HTTPException):
     code = 400
     description = 'Dados enviados incorretamente, tente de novo.'
 
-class ServerError(HTTPException):
-    code = 500
-    description = f'Erro no servidor'
 
 def get_all_clients():
      clientes = Cliente.query.all()

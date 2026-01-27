@@ -32,6 +32,10 @@ class SchedulingNotFound(HTTPException):
      code = 404
      description = 'Agendamento não foi encontrado.'
 
+class DataInvalid(HTTPException):
+     code = 400
+     description = 'Dados inválidos, tente de novo.'
+
 def get_all_schedulings():
      scheduling = Agendamento.query.all()
      return [sch.info() for sch in scheduling]
