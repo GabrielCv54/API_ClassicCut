@@ -72,3 +72,10 @@ Enquanto o projeto estiver lá rodando, você pode utilizar ferramentas como Pos
 ### GET
 <img width="1890" height="1023" alt="print_get_barbearia" src="https://github.com/user-attachments/assets/659894c3-2bc3-44d5-a113-84928e280b6b" />
 
+### POST
+<img width="1240" height="797" alt="print_post_barbearia" src="https://github.com/user-attachments/assets/d51345d1-dfa6-494f-9fe5-eeba3690b584" />
+
+
+### PUT
+<img width="1227" height="784" alt="print_put_barbearia" src="https://github.com/user-attachments/assets/8ef3f656-f73b-4f19-9feb-e8d805abbb05" />
+
