@@ -7,7 +7,6 @@ barber_model = barber_ns.model('Barbeiro',{
     "barbeiro": fields.String(required=True,description='Nome do barbeiro'),
     "idade":fields.Integer(description="Idade do barbeiro"),
     "local de trabalho":fields.String(required=True,description="Local onde o barbeiro trabalha"),
-    "agendamentos": fields.List(fields.Integer(required=True,description="Agendamento(s) que o barbeiro realizará"))
             })
 
 barber_output_model = barber_ns.model('BarbeiroOutput',{

@@ -1,6 +1,5 @@
 from flask_restx import Namespace,Resource,fields
 from endpoints.cliente_routes import update_client,create_cliente,delete_client,get_all_clients,get_one_client,CustomerNotFound
-from app import api
 
 client_ns = Namespace('Cliente',description='Operações relacionadas aos clientes')
 
